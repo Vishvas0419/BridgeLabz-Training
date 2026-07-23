@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Operators/03_Operators.csproj" Id="c729b5d0-3fe9-41e5-b18b-fab31390e8a9" />
+  <Project Path="ReadWriteBasics/01_ReadWriteBasics.csproj" />
+  <Project Path="TypeConversion/02_TypeConversion.csproj" />
+</Solution>
