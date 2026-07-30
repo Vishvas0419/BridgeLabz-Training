@@ -1,0 +1,102 @@
+﻿namespace _02_ControlFlow
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            //if-else
+            ////Check if a number is positive, negative, or zero
+            //int n = int.Parse(Console.ReadLine());
+            //if(n>0)
+            //{
+            //    Console.WriteLine("The number is positive.");
+            //}
+            //else if(n<1)
+            //{
+            //    Console.WriteLine("The number is negative.");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Number is zero");
+            //}   
+            ////Check if a person is eligible to vote(age >= 18)
+            //int age = Convert.ToInt32(Console.ReadLine());
+            //if (age >= 18 && age < 100) Console.WriteLine("The person is eligible to vote");
+            //else if (age < 18) Console.WriteLine("The person is not eligible to vote");
+            //else Console.WriteLine("please enter a valid age");
+            ////Find the largest of three numbers using nested if-else
+            //Console.WriteLine("Enter three numbers to find greatest among three them: ");
+            //int num1 = int.Parse(Console.ReadLine());
+            //int num2 = int.Parse(Console.ReadLine());
+            //int num3 = int.Parse(Console.ReadLine());
+            //if(num1>num2)
+            //{
+            //    if(num1>num3)
+            //    {
+            //        Console.WriteLine(num1 + " is greatest");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine(num3 + " is greatest");
+            //    }
+            //}
+            //else
+            //{
+            //    if(num2>num3)
+            //    {
+            //        Console.WriteLine(num2+" is greatest");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine(num3+" is greatest");
+            //    }
+            //}
+            //Write a program to take 2 numbers and print their quotient and remainder
+            //int a = int.Parse(Console.ReadLine());
+            //int b = int.Parse(Console.ReadLine());
+            //Console.WriteLine("Quotient: " + a / b);
+            //Console.WriteLine("Remainder : " + a % b);
+            //2. Write an IntOperation program by taking a, b, and c as input values and
+            //print the following integer operations: a + b * c, a* b +c, c +a / b, and a % b + c
+            //int a = int.Parse(Console.ReadLine());
+            //int b = int.Parse(Console.ReadLine());
+            //int c = int.Parse(Console.ReadLine());
+            //Console.WriteLine($"a + b * c = {a + b * c}"); //5
+            //Console.WriteLine($"a* b +c = {a * b + c}");//5
+            //Console.WriteLine($"c +a / b ={10 / 5 * 4}");//
+
+            //Create a program to swap two numbers without using 3rd variable
+            //int x = int.Parse(Console.ReadLine()); //5
+            //Console.WriteLine("x value : " + x);
+            //int y = int.Parse(Console.ReadLine()); //10
+            //Console.WriteLine("y value : " + y);
+
+            //x = x + y; // 15
+            //y = x - y; //5
+            //x = x - y; //10
+
+            //Console.WriteLine("x : " + x);
+            //Console.WriteLine("y : " + y);
+            //Switch case (Calculator)
+            int a = int.Parse(Console.ReadLine());
+            int b = int.Parse(Console.ReadLine());
+            int c = int.Parse(Console.ReadLine());
+
+            //switch (a)
+            //{
+            //}
+            Switch.Calculator();
+
+            Console.WriteLine("Enter numbers separated by space to sum using params:");
+            string[] inputs = Console.ReadLine().Split(' ');
+            int[] numbers = new int[inputs.Length];
+            for(int i = 0; i < inputs.Length; i++)
+            {
+                numbers[i] = int.Parse(inputs[i]);
+            }
+
+            Loops loops = new Loops();
+            Console.WriteLine($"Sum using params: {loops.SumMultiple(numbers)}");
+        }
+    }
+}

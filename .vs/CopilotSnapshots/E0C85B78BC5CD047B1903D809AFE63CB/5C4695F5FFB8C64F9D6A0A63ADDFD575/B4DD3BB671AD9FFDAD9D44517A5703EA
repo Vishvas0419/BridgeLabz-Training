@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace _02_ControlFlow
+{
+    internal class Loops
+    {
+        //- Create a program  find the sum of all the digits of a number given by a user.
+        
+        public int SumOfDigits(int num)
+        {   
+            int sum = 0;
+            while (num != 0)
+            {
+                sum += num % 10;
+                num /= 10;
+            }
+            return sum;
+        }
+
+        // Using params array so caller can pass any count of numbers
+        public int SumMultiple(params int[] numbers)
+        {
+            int sum = 0;
+            foreach (int n in numbers)
+            {
+                sum += n;
+            }
+            return sum;
+        }
+    }
+}

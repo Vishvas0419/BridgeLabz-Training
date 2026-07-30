@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore.txt" />
+  </Folder>
+  <Project Path="02_ControlFlow/02_ControlFlow.csproj" />
+</Solution>

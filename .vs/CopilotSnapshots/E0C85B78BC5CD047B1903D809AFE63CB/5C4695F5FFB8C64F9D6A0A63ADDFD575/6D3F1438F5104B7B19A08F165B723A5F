@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace _02_ControlFlow
+{
+    internal class Loops
+    {
+        //- Create a program  find the sum of all the digits of a number given by a user.
+
+        public int SumOfDigits(int num)
+        {   
+            while
+        }
+     
+
+
+    }
+}
