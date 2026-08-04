@@ -43,5 +43,4 @@ namespace _04_OOPS_Inheritance
             Console.WriteLine("Cat says Meow");
         }
     }
-
 }
