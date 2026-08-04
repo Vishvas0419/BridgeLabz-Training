@@ -29,7 +29,6 @@
             //dog.Eat(); //inherited from animal class
 
             //multiple inheritance
-
             Cat cat = new Cat();
             //cat.Meow();//cat can access Eat bark & meow() method
             //cat.Bark();//inherited from Dog superclass
