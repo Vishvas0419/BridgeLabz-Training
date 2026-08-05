@@ -29,10 +29,73 @@
             //dog.Eat(); //inherited from animal class
 
             //multiple inheritance
-            Cat cat = new Cat();
-            //cat.Meow();//cat can access Eat bark & meow() method
-            //cat.Bark();//inherited from Dog superclass
-            cat.Eat();//inherited from Cat superclass of superclass
+            //Cat cat = new Cat();
+            ////cat.Meow();//cat can access Eat bark & meow() method
+            ////cat.Bark();//inherited from Dog superclass
+            //cat.Eat();//inherited from Cat superclass of superclass
+
+            //Hierarchical Inheritance: Multiple classes can inherit from a single superclass.
+
+
+            Parent p = new Child2();
+            //p.display();
+            p.GetHashCode
+
+
+            //Parent p = new Parent();
+            //p.display();
+
+            //Parent p2 = new Child1();
+            //p2.display();
+
+            //Parent p3 = new Child2();
+            //p3.display();
+
+            //Child1 c1 = new Child1();
+            //c1.display();
+
+            //Child1 c2 = new Child2();
+
+            Child2 c3 = new Child2();
+            c3.display();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //ChildClass c = new ChildClass();
+            //c.age = 20;
+            //c.Age = 22;
+
+
+            
+
         }
     }
 }

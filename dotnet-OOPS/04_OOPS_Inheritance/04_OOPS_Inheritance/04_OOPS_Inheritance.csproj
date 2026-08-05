@@ -8,4 +8,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ParentClass.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ParentClass.cs" />
+  </ItemGroup>
+
 </Project>
