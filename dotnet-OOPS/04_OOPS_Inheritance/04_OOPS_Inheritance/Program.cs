@@ -37,9 +37,9 @@
             //Hierarchical Inheritance: Multiple classes can inherit from a single superclass.
 
 
-            Parent p = new Child2();
-            //p.display();
-            p.GetHashCode
+            //Parent p = new Child2();
+            ////p.display();
+            //p.GetHashCode
 
 
             //Parent p = new Parent();
@@ -56,8 +56,26 @@
 
             //Child1 c2 = new Child2();
 
-            Child2 c3 = new Child2();
-            c3.display();
+            //Child2 c3 = new Child2();
+            //c3.display();
+
+
+            //Assignment Questions
+
+            AnimalClass animal1 = new AnimalClass();
+            animal1.MakeSound();
+
+            AnimalClass a2 = new DogClass();
+            a2.MakeSound();
+
+            AnimalClass a3 = new CatClass();
+            a3.MakeSound();
+
+            AnimalClass a4 = new BirdClass();
+            a4.MakeSound();
+
+            //which merhod to call is decided on runtime according to the Object type being created
+
 
 
 
