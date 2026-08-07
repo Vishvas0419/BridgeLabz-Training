@@ -40,7 +40,7 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
 
 
             //encapsulation example
-            //BankAccount acc1 = new BankAccount("12345678990","Vishvas",100000.0);
+            //BankAccount1 acc1 = new BankAccount1("12345678990","Vishvas",100000.0);
             //acc1.displayAccountDetails();
 
             //Console.WriteLine(acc1.Balance);
@@ -100,18 +100,56 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
 
 
             //Ecommerce platform
-            List<Product> products = new List<Product>();
+            //List<Product> products = new List<Product>();
 
-            //Product p = new Electronics(1, "Laptop", 60000.0);
+            ////Product p = new Electronics(1, "Laptop", 60000.0);
 
-            products.Add(new Electronics(1, "Laptop", 60000.0));
-            products.Add(new Clothing(2, "Shirt", 1200.0));
-            products.Add(new Groceries(3, "Vegetables", 200.0));
+            //products.Add(new Electronics(1, "Laptop", 60000.0));
+            //products.Add(new Clothing(2, "Shirt", 1200.0));
+            //products.Add(new Groceries(3, "Vegetables", 200.0));
 
-            foreach (Product item in products)
+            //foreach (Product item in products)
+            //{
+            //    item.DisplayDetails();
+            //}
+
+            //Banking Management System
+
+            //List<BankAccount> accounts = new List<BankAccount>();
+
+            //accounts.Add(new SavingsAccount("123456789", "Vishvas", 20000.0));
+            //accounts.Add(new CurrentAccount("0987654321", "Vishu", 10000.0));
+
+            //for(int i=0;i<accounts.Count;i++)
+            //{
+            //    BankAccount account = accounts[i];
+            //    account.Deposit(2000.0);
+            //    account.withdraw(5000.0);
+            //    account.DisplayAcccountDetails();
+            //}
+
+            //Hospital Management System
+
+            List<Patient> patients = new List<Patient>();
+
+            InPatient inPatient1 = new InPatient(1, "Ravi Kumar", 45, 5, 2000, "Pneumonia");
+            inPatient1.AddRecord("Admitted with fever and cough");
+            inPatient1.AddRecord("X-Ray confirmed pneumonia");
+
+            OutPatient outPatient1 = new OutPatient(2, "Simran Kaur", 30, 800, "Seasonal Flu");
+            outPatient1.AddRecord("Prescribed antibiotics and rest");
+
+            patients.Add(inPatient1);
+            patients.Add(outPatient1);
+
+            int index = 0;
+            while (index < patients.Count)
             {
-                item.DisplayDetails();
+                Patient currentPatient = patients[index];
+                currentPatient.GetPatientDetails();
+                index++;
             }
+
         }
     }
 }

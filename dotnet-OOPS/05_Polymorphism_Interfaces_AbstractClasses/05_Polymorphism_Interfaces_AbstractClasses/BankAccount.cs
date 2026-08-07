@@ -4,41 +4,50 @@ using System.Text;
 
 namespace _05_Polymorphism_Interfaces_AbstractClasses
 {
-    internal class BankAccount
+    internal interface ILoanable
     {
-        private static readonly string bankName = "PNB";
+        bool ApplyForLoan(double loanAmount);
+        double CalculateLoanEligibility();
+    }
+    internal abstract class BankAccount
+    {
+        //accountNumber, holderName, and balance.
         private string accountNumber;
-        private string name;
+        private string holderName;
         private double balance;
 
-        //public BankAccount{
-            
-        //}
-        public BankAccount(string accountNumber, string name,double balance)
+        public BankAccount(string accountNumber,string holderName,double balance)
         {
-            Console.WriteLine("Welcome to "+bankName);
             this.accountNumber = accountNumber;
-            this.name = name;
+            this.holderName = holderName;
             this.balance = balance;
         }
 
         public string AccountNumber
         {
-            get { return accountNumber; }
+            get {  return accountNumber; }
+            private set
+            {
+                accountNumber = value;
+            }
+        }
+
+        public string HolderName
+        {
+            get { return holderName; }
+
+            private set
+            {
+                holderName = value;
+            }
         }
 
         public double Balance
         {
             get { return balance; }
-            set {
-                if(value>=0)
-                {
-                    balance = value;
-                }
-                else
-                {
-                    Console.WriteLine("Gareeb...Balance nhi hai tere paas..");
-                }
+            private set
+            {
+                balance = value;
             }
         }
 
@@ -46,7 +55,7 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
         {
             Console.WriteLine($"Processing deposit of {amount}..");
 
-            if (amount>0)
+            if (amount > 0)
             {
                 balance += amount;
                 Console.WriteLine("Amount deposited successfully");
@@ -60,10 +69,10 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
         {
             Console.WriteLine($"Processing withdrawal of {amount}..");
 
-            if (amount > 0 && amount<=balance)
+            if (amount > 0 && amount <= balance)
             {
                 balance -= amount;
-                Console.WriteLine("Amount deposited successfully..");
+                Console.WriteLine("Amount withdrawn successfully..");
             }
             else
             {
@@ -71,13 +80,60 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
             }
         }
 
-        public void displayAccountDetails()
+        public abstract double CalculateInterest();
+
+        public void DisplayAcccountDetails()
         {
-            Console.WriteLine("=========== Your Account Details ==========");
-            Console.WriteLine("Account Number : "+accountNumber);
-            Console.WriteLine("Name : "+name);
-            Console.WriteLine("Current Balance: "+balance);
+            Console.WriteLine("===== Account Details =====");
+
+            Console.WriteLine("Account Number "+accountNumber);
+            Console.WriteLine("Account Holder Name : "+holderName);
+            Console.WriteLine("Account Balance : "+balance);
+            Console.WriteLine("Interest : "+CalculateInterest());
+
+            if(this is ILoanable LoanableAccount)
+            {
+                Console.WriteLine("Loan Eligibility : "+ LoanableAccount.CalculateLoanEligibility());
+            }
+            Console.WriteLine("=====================================================");
         }
     }
 
+    internal class SavingsAccount : BankAccount, ILoanable
+    {
+        public SavingsAccount(string accountNumber, string holderName, double balance) : base(accountNumber, holderName, balance) { }
+
+        public override double CalculateInterest()
+        {
+            return Balance * 0.80;
+        }
+
+        public bool ApplyForLoan(double loanAmount)
+        {
+            return loanAmount < CalculateLoanEligibility();
+        }
+        public double CalculateLoanEligibility()
+        {
+            return Balance * 0.60; //can borrow upto 60% of your balance amount
+        }
+    }
+
+    internal class CurrentAccount : BankAccount,ILoanable
+    {
+        public CurrentAccount(string accountNumber, string holderName, double balance) : base(accountNumber,holderName,balance) { }
+        public override double CalculateInterest()
+        {
+            return Balance * 0.04; //4% interest  
+        }
+
+        public bool ApplyForLoan(double loanAmount)
+        {
+            return loanAmount < CalculateLoanEligibility();
+        }
+        public double CalculateLoanEligibility()
+        {
+            return Balance * 0.60; //can borrow upto 60% of your balance amount
+        }
+
+    }
 }
