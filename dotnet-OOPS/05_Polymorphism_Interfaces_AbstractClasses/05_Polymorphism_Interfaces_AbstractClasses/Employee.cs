@@ -46,7 +46,7 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
         }
     }
 
-    class FullTimeEmployee : Employee, IDepartment
+    class FullTimeEmployee : Employee
     {
         private string department;
         private double monthlyBonus;
@@ -83,7 +83,7 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
         }
     }
 
-    class PartTimeEmployee : Employee , IDepartment
+    class PartTimeEmployee : Employee
     {
         private string department;
         private double hoursWorked;
