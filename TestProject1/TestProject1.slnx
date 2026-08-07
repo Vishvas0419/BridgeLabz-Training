@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CheckPrime/CheckPrime.csproj" Id="42ee3e97-3b21-47d4-9afe-3f6c465d7311" />
+  <Project Path="ClassLibrary1/ClassLibrary1.csproj" Id="859873b0-c5fc-43c8-8619-54f5ee6fc439" />
+  <Project Path="ConsoleApp1/ConsoleApp1.csproj" Id="c6908f2c-1512-4ec2-91a4-6648dd51f686" />
+  <Project Path="TestProject1/TestProject1.csproj" />
+</Solution>

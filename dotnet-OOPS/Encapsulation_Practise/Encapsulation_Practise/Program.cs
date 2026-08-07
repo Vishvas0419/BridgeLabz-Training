@@ -20,12 +20,6 @@
             s1.SetAge(40); //setting age using SetAge() method this is equal to s1.Age = 40
 
             Console.WriteLine(s1.GetAge()); //accessing age using custom GetAge() method
-
-
-
-            
-
-            
         }
     }
 }
