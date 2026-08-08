@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.ComponentModel;
+using System.Runtime.InteropServices;
 
 namespace _05_Polymorphism_Interfaces_AbstractClasses
 {
@@ -130,25 +131,36 @@ namespace _05_Polymorphism_Interfaces_AbstractClasses
 
             //Hospital Management System
 
-            List<Patient> patients = new List<Patient>();
+            //List<Patient> patients = new List<Patient>();
 
-            InPatient inPatient1 = new InPatient(1, "Ravi Kumar", 45, 5, 2000, "Pneumonia");
-            inPatient1.AddRecord("Admitted with fever and cough");
-            inPatient1.AddRecord("X-Ray confirmed pneumonia");
+            //InPatient inPatient1 = new InPatient(1, "Ravi Kumar", 45, 5, 2000, "Pneumonia");
+            //inPatient1.AddRecord("Admitted with fever and cough");
+            //inPatient1.AddRecord("X-Ray confirmed pneumonia");
 
-            OutPatient outPatient1 = new OutPatient(2, "Simran Kaur", 30, 800, "Seasonal Flu");
-            outPatient1.AddRecord("Prescribed antibiotics and rest");
+            //OutPatient outPatient1 = new OutPatient(2, "Simran Kaur", 30, 800, "Seasonal Flu");
+            //outPatient1.AddRecord("Prescribed antibiotics and rest");
 
-            patients.Add(inPatient1);
-            patients.Add(outPatient1);
+            //patients.Add(inPatient1);
+            //patients.Add(outPatient1);
 
-            int index = 0;
-            while (index < patients.Count)
-            {
-                Patient currentPatient = patients[index];
-                currentPatient.GetPatientDetails();
-                index++;
-            }
+            //int index = 0;
+            //while (index < patients.Count)
+            //{
+            //    Patient currentPatient = patients[index];
+            //    currentPatient.GetPatientDetails();
+            //    index++;
+            //}
+
+
+            // Operator Overloading 
+
+            Box1 box1 = new Box1(20);
+            Box1 box2 = new Box1(30);
+
+            Box1 result = box1.Add(box2);
+
+            Console.WriteLine(result.Length); //50
+
 
         }
     }
