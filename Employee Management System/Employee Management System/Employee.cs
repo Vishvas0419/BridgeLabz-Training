@@ -6,27 +6,22 @@ namespace Employee_Management_System
 {
     internal interface IPayable
     {
-        double CalculateSalary();
         void ProcessPayment();
     }
     internal interface IBonusable
     {
         double CalculateBonus();
     }
-
     internal interface IEvaluable
     {
         void PerformEvaluation();
     }
-
     internal abstract class Employee
     {
         private int employeeID;
         private string name;
         private int age;
         private string department;
-        private double salary;
-
         private int numberOfOvertimeShifts;
 
         public int EmployeeID
@@ -46,95 +41,141 @@ namespace Employee_Management_System
                 name = value;
             }
         }
+
         public int Age
         {
             get { return age; }
-            private set {  age = value; }
+            private set
+            {
+                age = value;
+            }
         }
+
         public int NumberOfOvertimeShifts
         {
             get { return numberOfOvertimeShifts; }
-            private set { numberOfOvertimeShifts = value; }
-        }
-        public double Salary
-        {
-            get { return salary; }
-            private set { salary = value; }
+            private set
+            {
+                numberOfOvertimeShifts = value;
+            }
         }
 
         public string Department
         {
             get { return department; }
-            private set { department = value; }
+            private set
+            {
+                department = value;
+            }
         }
 
-        public Employee(int employeeID, string name, int age,string Department)
+        public Employee(
+            int employeeID,
+            string name,
+            int age,
+            string department)
         {
             this.employeeID = employeeID;
             this.name = name;
             this.age = age;
-            this.department = Department;
+            this.department = department;
         }
+
+        public void AddOvertimeShift()
+        {
+            NumberOfOvertimeShifts++;
+        }
+
+
+        
         public abstract double CalculateSalary();
-        public abstract double CalculateBonus();
+
         public virtual void DisplayDetails()
         {
-            Console.WriteLine($"Employee ID: {employeeID}, Name: {name}, Age: {age}, Department: {department}");
+            Console.WriteLine(
+                $"Employee ID: {EmployeeID}, " +$"Name: {Name}, " + $"Age: {Age}, " + $"Department: {Department}");
         }
+
+
         public void ClockIn()
         {
-            Console.WriteLine($"{name} has clocked in.");
+            Console.WriteLine($"{Name} has clocked in.");
         }
+
+
         public void ClockOut()
         {
-            Console.WriteLine($"{name} has clocked out.");
+            Console.WriteLine($"{Name} has clocked out.");
         }
     }
-    internal class Developer : Employee, IBonusable
+    internal class Developer : Employee, IPayable, IBonusable, IEvaluable
     {
-        public Developer(int employeeID, string name, int age, string department) : base(employeeID, name, age, department){}
+        public Developer(
+            int employeeID,
+            string name,
+            int age,
+            string department)
+            : base(employeeID, name, age, department){}
 
-
-        public void writeCode()
+        public void WriteCode()
         {
             Console.WriteLine("Writing code...");
         }
-        public void reviewCode()
+
+        public void ReviewCode()
         {
             Console.WriteLine("Reviewing code...");
         }
 
-        public override double CalculateBonus()
+        public override double CalculateSalary()
         {
-            // Implementation for calculating developer bonus
+            double baseSalary = 50000;
+            double overtimePay = NumberOfOvertimeShifts * 50;
+
+            return baseSalary + overtimePay;
+        }
+
+        public double CalculateBonus()
+        {
             double bonus = 1;
             return NumberOfOvertimeShifts * bonus;
         }
 
-        public override double CalculateSalary()
+        public void ProcessPayment()
         {
-            double baseSalary = 50000; 
-            double overtimePay = NumberOfOvertimeShifts * 50;
-            return baseSalary + overtimePay;
+            Console.WriteLine($"Payment processed for {Name}. " + $"Salary: {CalculateSalary()}");
         }
+
+
+        public void PerformEvaluation()
+        {
+            Console.WriteLine($"Performance evaluation completed for Developer {Name}.");
+        }
+
+
         public override void DisplayDetails()
         {
-            //base.DisplayDetails();
+            base.DisplayDetails();
+
             Console.WriteLine($"Salary: {CalculateSalary()}");
+            Console.WriteLine($"Bonus: {CalculateBonus()}");
         }
     }
-    internal class Manager : Employee
+    internal class Manager : Employee, IPayable, IBonusable, IEvaluable
     {
-        private int employeeID;
-        private string name;
-        private int age;
-        private string department;
-        //private string designation;
         private int workingHours;
 
-        public Manager(int employeeID, string name, int age, string department, int workingHours) : base(employeeID, name, age, department) {
-        this.workingHours = workingHours;
+        public Manager(
+            int employeeID,
+            string name,
+            int age,
+            string department,
+            int workingHours)
+            : base(employeeID, name, age, department)
+        {
+            this.workingHours = workingHours;
         }
+
 
         public void AssignTask()
         {
@@ -152,18 +193,39 @@ namespace Employee_Management_System
         {
             double baseSalary = 80000;
             double overtimePay = workingHours * 100;
+
             return baseSalary + overtimePay;
         }
-        public override double CalculateBonus()
+        public double CalculateBonus()
         {
             return 5000;
         }
-
+        public void ProcessPayment()
+        {
+            Console.WriteLine($"Payment processed for Manager {Name}. " + $"Salary: {CalculateSalary()}");
+        }
+        public void PerformEvaluation()
+        {
+            Console.WriteLine($"Performance evaluation completed for Manager {Name}.");
+        }
+        public override void DisplayDetails()
+        {
+            base.DisplayDetails();
+            Console.WriteLine($"Salary: {CalculateSalary()}");
+            Console.WriteLine($"Bonus: {CalculateBonus()}");
+            Console.WriteLine($"Working Hours: {workingHours}");
+        }
     }
-    internal class HRRepresentative : Employee
+    internal class HRRepresentative : Employee, IPayable, IBonusable, IEvaluable
     {
-        
-        public HRRepresentative(int employeeID, string name, int age, string department) : base(employeeID, name, age, department) { }
+        public HRRepresentative(
+            int employeeID,
+            string name,
+            int age,
+            string department)
+            : base(employeeID, name, age, department)
+        {
+        }
         public void OnboardEmployee()
         {
             Console.WriteLine("Onboarding new employee...");
@@ -176,8 +238,26 @@ namespace Employee_Management_System
         {
             return 60000;
         }
-        public override double CalculateBonus()
+        public double CalculateBonus()
         {
-            return 2000; 
+            return 2000;
+        }
+        public void ProcessPayment()
+        {
+            Console.WriteLine(
+                $"Payment processed for HR Representative {Name}. " + $"Salary: {CalculateSalary()}");
+        }
+        public void PerformEvaluation()
+        {
+            Console.WriteLine(
+                $"Performance evaluation completed for HR Representative {Name}.");
+        }
+        public override void DisplayDetails()
+        {
+            base.DisplayDetails();
+
+            Console.WriteLine($"Salary: {CalculateSalary()}");
+            Console.WriteLine($"Bonus: {CalculateBonus()}");
         }
     }
+}
