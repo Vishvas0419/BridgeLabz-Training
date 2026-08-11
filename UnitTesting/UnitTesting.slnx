@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ClassLibrary1/ClassLibrary1.csproj" Id="2966b2a8-5a0b-4b24-b65d-0fb7f60e8db0" />
+  <Project Path="UnitTesting/UnitTesting.csproj" />
+</Solution>
