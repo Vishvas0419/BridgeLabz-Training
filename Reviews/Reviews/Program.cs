@@ -77,28 +77,44 @@ namespace Reviews
             //======================================================================
             //Problem 3 - Find Length of the longest substring without repeating characters
 
-            Console.WriteLine("Enter a string to find Length of the longest substring without repeating characters : ");
-            string str = Console.ReadLine();
-            Console.WriteLine("Length of the longest substring without repeating characters is : " + LongestSubWithoutRepChar(str));
+            //Console.WriteLine("Enter a string to find Length of the longest substring without repeating characters : ");
+            //string str = Console.ReadLine();
+            //Console.WriteLine("Length of the longest substring without repeating characters is : " + LongestSubWithoutRepChar(str));
 
 
-            //==============================================================================
-            // Problem 4 - Write a C# Sharp program that calculates the smallest gap between the numbers in an array of integers. Go to the editor
-            // Sample Data:
-            // ({ 7, 5, 8, 9, 11, 23, 18 }) -> 1 (diff btw 8,9)
-            // ({ 200, 300, 250, 151, 162 }) -> 11 (diff btw 151, 162) 
+            ////==============================================================================
+            //// Problem 4 - Write a C# Sharp program that calculates the smallest gap between the numbers in an array of integers. Go to the editor
+            //// Sample Data:
+            //// ({ 7, 5, 8, 9, 11, 23, 18 }) -> 1 (diff btw 8,9)
+            //// ({ 200, 300, 250, 151, 162 }) -> 11 (diff btw 151, 162) 
 
 
-            Console.WriteLine("Enter size of array to calculate the smallest gap between the numbers in the array : ");
-            int n = int.Parse(Console.ReadLine());
-            Console.WriteLine("Now Enter Array Elements : ");
-            int[]arr = new int[n];
-            for (int i = 0; i < n; i++)
+            //Console.WriteLine("Enter size of array to calculate the smallest gap between the numbers in the array : ");
+            //int n = int.Parse(Console.ReadLine());
+            //Console.WriteLine("Now Enter Array Elements : ");
+            //int[]arr = new int[n];
+            //for (int i = 0; i < n; i++)
+            //{
+            //    arr[i] = int.Parse(Console.ReadLine());
+            //}
+            //Console.WriteLine("Result : " + SmallestGap(arr,n));
+
+            //project 2 moview streaming platform
+            RegexParse parser = new RegexParse();
+            ProfileStore<ViewingSession> store = new ProfileStore<ViewingSession>();
+
+            string record = "USER:Alice|TITLE:Mission: Impossible - Fallout (2018)|GENRES:sci-fi,drama,thriller|WATCHED:80%|TS:2026-08-14T21:10:00";
+
+            ViewingSession session = parser.Parse(record);
+            session.display();
+
+            store.AddSession(session);
+
+            Dictionary<string, double> profile = store.GetProfile("Alice");
+            foreach (var pair in profile)
             {
-                arr[i] = int.Parse(Console.ReadLine());
+                Console.WriteLine(pair.Key + " : " + pair.Value);
             }
-            Console.WriteLine("Result : " + SmallestGap(arr,n));
-
 
         }
     }
