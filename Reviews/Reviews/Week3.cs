@@ -16,6 +16,24 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Reviews
 {
+    //Week 3 coding question 
+
+    //Problem Statement 1 - Pyramid Arrangement
+
+    //Given to you is an unordered / unsorted integer array of size n.Reorder the array in such a way that the largest number of the array is in the middle index of the array and the remaining numbers which are lesser than or equal to the previous element should be arranged in descending order as we move to the edges of the array ((0, n-1) index).
+    //Note that as we move to the edges of the array, you will need to arrange the elements in the descending order starting from the middle index.You have to place the next largest after the largest element (the middle element) on either side of the middle element.
+    //If n is even, you can consider either of the n / 2 - 1'^ or n/2t^ index as your middle element and place the largest element in either of those indexes and move towards edges from there.
+    //Example:
+    //Input:
+    //1, 4, 3, 6, 8, 7, 9, 2, 5, 0, 12, 23, -1
+    //Output:
+    //-1, 1, 3, 5, 7, 9, 23, 12, 8, 6, 4, 2, 0
+    //int[] pyramid(int arr[], int n) {
+    //……………..your code
+    //……………
+    //return arr[ ]
+    //}
+
     internal static class Week3
     {
         public static int[] pyramid(int[] arr, int n)
@@ -37,6 +55,10 @@ namespace Reviews
             return result;
         }
     }
+
+    //=========================================================
+
+    //project 2 - moview streaming platform
     public class ViewingSession
     {
         private string username;
@@ -173,24 +195,9 @@ namespace Reviews
     //============================================================
 
 
-    //Week 3 coding question - Pyramid Arrangement
-
-//Given to you is an unordered / unsorted integer array of size n.Reorder the array in such a way that the largest number of the array is in the middle index of the array and the remaining numbers which are lesser than or equal to the previous element should be arranged in descending order as we move to the edges of the array ((0, n-1) index).
-//Note that as we move to the edges of the array, you will need to arrange the elements in the descending order starting from the middle index.You have to place the next largest after the largest element (the middle element) on either side of the middle element.
-//If n is even, you can consider either of the n / 2 - 1'^ or n/2t^ index as your middle element and place the largest element in either of those indexes and move towards edges from there.
-//Example:
-//Input:
-//1, 4, 3, 6, 8, 7, 9, 2, 5, 0, 12, 23, -1
-//Output:
-//-1, 1, 3, 5, 7, 9, 23, 12, 8, 6, 4, 2, 0
-//int[] pyramid(int arr[], int n) {
-//……………..your code
-//……………
-//return arr[ ]
-//}
-
+    
     
 
-    }
+}
 
 
