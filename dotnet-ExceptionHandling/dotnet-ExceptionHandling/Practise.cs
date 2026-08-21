@@ -49,5 +49,14 @@ namespace ExceptionHandling
             int a = 10; int b = 0;
             int x = a / b;
         }
+
+        public static void CheckAge(int age)
+        {
+            if (age < 18) throw new ArgumentException("You are not eligible to vote yet.... your age must greater than 18 !");
+            else Console.WriteLine("Age is valid to vote");
+        }
     }
+
+
+    
 }

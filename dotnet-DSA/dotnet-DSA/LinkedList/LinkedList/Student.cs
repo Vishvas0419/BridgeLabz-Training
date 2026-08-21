@@ -4,8 +4,6 @@ using System.Text;
 
 namespace LinkedList
 {
-    internal class Student
-    {
         public class Student
         {
             private int rollNumber;
@@ -70,9 +68,9 @@ namespace LinkedList
             }
         }
 
-        public class StudentLinkedList
+        public class StudentLinkedList //to perform ll operations
         {
-            private StudentNode head;
+            private StudentNode head; 
             private int count;
 
             public int Count
@@ -205,5 +203,4 @@ namespace LinkedList
                 }
             }
         }
-    }
 }

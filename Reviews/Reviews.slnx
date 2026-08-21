@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Reviews/Reviews.csproj" />
+  <Project Path="TestProjectReview/TestProjectReview.csproj" Id="18c6c4ff-9b78-4024-8d79-87c3b7db6cbc" />
+</Solution>

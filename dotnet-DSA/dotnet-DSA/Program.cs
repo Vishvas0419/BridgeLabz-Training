@@ -1,10 +1,10 @@
-﻿namespace ExceptionHandling
+﻿namespace dotnet_DSA
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Practise.DivideByZero();
+
         }
     }
 }

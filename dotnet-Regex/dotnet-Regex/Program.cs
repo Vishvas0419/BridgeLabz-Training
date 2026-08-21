@@ -37,12 +37,20 @@ namespace dotnet_Regex
             //Console.WriteLine(Regex.IsMatch("hello", @"^[hel]")); //true
             //Console.WriteLine(Regex.IsMatch("",@"[]"));
 
-            //start ^ the string should start with the regex pattern writeen after ^
+            //start ^ means the string should start with the regex pattern written after ^
+
             //Console.WriteLine(Regex.IsMatch("hello my name is vishvas", "^hello")); //true
             //Console.WriteLine(Regex.IsMatch("hello my name is vishvas", "^helo")); //false
             //Console.WriteLine(Regex.IsMatch("hello my roll number is 2310991082",());
 
             //email vaildation username@gmail.com
+
+            string input3 = "vishvas@gmail.com";
+            string emailPattern = @"^[a-zA-z0-9]+@gmail\.com$";
+            bool isValidEmail = Regex.IsMatch(input3,emailPattern);
+
+            if(isValidEmail) Console.WriteLine($"{input3} is a valid email");
+            else Console.WriteLine($"{input3} is not a valid email");
 
             //Regex.Match() and 
 
@@ -65,10 +73,55 @@ namespace dotnet_Regex
 
             string[] splitResult = Regex.Split("Hello my name is vishvas, my age is 21 years old and i have 10 apples and 5 oranges in my bag",@"[,and]");
 
-            foreach(string s in splitResult)
+            //foreach(string s in splitResult)
+            //{
+            //    Console.WriteLine(s);
+            //}
+
+            //regex class methods
+            string input2 = "My phone number is 123-456-7890";
+            string pattern2 = @"\d{3}-\d{3}-\d{4}";
+            string replacement = "***-***-****";
+            string result2 = Regex.Replace(input2, pattern2, replacement);
+            Console.WriteLine(result2);
+
+            //Lookaheads and Lookbehinds
+
+            string input4 = "hello i have 100 apples and 50 oranges";
+            Match match4 = Regex.Match(input4, @"\d+(?= apples)"); //this regex pattern means : match \d only if apples comes after \d (positive lookahead)
+            Console.WriteLine(match4);//100
+
+            //note : regex.match will matches the regex pattern string that is outside the parenthesis () here \d+ will be the output
+
+            string input5 = "hello i have 100 apples and 50 oranges";
+            Match match5 = Regex.Match(input5, @"\d+(?! apples)"); //this regex pattern means : match \d only if apples does not comes after \d (negative lookahead)
+            Console.WriteLine(match5);//10
+
+            string input6 = "hello i have 100 apples and 50 oranges";
+            Match match6 = Regex.Match(input6, @"(?<=\d+) oranges"); //this regex pattern means : match oranges only if \d comes before apples (positive lookbehind)
+            Console.WriteLine(match6);//apples
+
+            string input7 = "hello i have 100 apples and 50 oranges and i have lot of oranges";
+            Match match7 = Regex.Match(input7, @"(?<!\d+) oranges"); //this regex pattern means : match oranges only if \d does not comes before apples (negative lookbehind)
+            Console.WriteLine(match7);//empty output because their is no pattern which have not 
+
+
+            //email validation 
+            //email = vishvas1234@gmail.com
+            string input8 = "vishvas@gmail.com";
+            //Match match8 = Regex.Match(input8, @"^[0-9A-Za-z._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            //Console.WriteLine(match8);
+            if (Regex.IsMatch(input8, @"^[0-9A-Za-z._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
             {
-                Console.WriteLine(s);
+                Console.WriteLine($"{input8} is a valid email address");
             }
+            else Console.WriteLine($"{input8} is not a valid email adddress");
+
+
+            // URL Validation
+            string input9 = "https://www.google.com/";
+            Match Regex.IsMatch(input9, @"^(http://|https://)?(www)?\.(\w\d)+\.(\w{2,})");
+            Console.WriteLine();
         }
     }
 }
