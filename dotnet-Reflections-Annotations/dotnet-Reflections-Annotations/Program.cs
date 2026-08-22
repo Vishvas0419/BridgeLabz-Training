@@ -5,9 +5,9 @@
         static void Main(string[] args)
         { 
 
-            //Reflection main class
+            //Reflection Assignment main class
 
-            Reflection_Assignment.GetClassInformation();
+            //Reflection_Assignment.GetClassInformation();
 
             //Reflection_Assignment.AccessPrivateField();
 
@@ -21,11 +21,11 @@
 
 
 
-            //Annotations main class
+            //Annotations Assignment main class
 
 
-            Annotations_Assignment.MethodOverriding();
-
+            //Annotations_Assignment.MethodOverriding();
+            Annotations_Assignment.ObsoleteAttributeExample();
 
 
         }
