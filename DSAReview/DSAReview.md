@@ -581,7 +581,6 @@ The project requires:
 
 ```text
 Minimum tests: 10
-Integrated workflows: 2
 ```
 
 The test suite should verify both normal operations and important edge cases.
