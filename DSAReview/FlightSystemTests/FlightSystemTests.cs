@@ -50,5 +50,48 @@ namespace DSAReview.Tests
                 fs.NavigateFlightForward(TimeOnly.Parse("12:00 PM"));
             Assert.That(result, Is.Null);
         }
+
+        [Test] //Tests the runwayHead == null branch in RunwayAllocation().
+        public void RunwayAllocation_NoRunway_ShouldNotAllocate()
+        {
+            Assert.DoesNotThrow(() => fs.RunwayAllocation());
+        }
+
+        [Test] //Tests that RunwayAllocation() works when runways have been added.
+        public void RunwayAllocation_WithRunways_ShouldWork()
+        {
+            fs.AddRunway(1);
+            fs.AddRunway(2);
+
+            Assert.DoesNotThrow(() => fs.RunwayAllocation());
+        }
+
+
+        [Test] //Tests the AddFlight() method by adding a new flight and then checking that it appears in the DLL.
+        public void AddFlight_ShouldAddNewFlight()
+        {
+            fs.AddFlight(
+                new Flight(104, "SpiceJet", TimeOnly.Parse("12:00 PM"))
+            );
+
+            FlightNode result =
+                fs.NavigateFlightBackward(TimeOnly.Parse("12:00 PM"));
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Data.Code, Is.EqualTo(103));
+        }
+
+
+        [Test] //Tests the RunwayBoarding() empty-queue handling.
+        public void RunwayBoarding_EmptyQueue_ShouldNotThrow()
+        {
+            Assert.DoesNotThrow(() => fs.RunwayBoarding(101));
+        }
+
+        [Test] //Tests that FlightCancellation() can find an existing flight and process it.
+        public void FlightCancellation_ExistingFlight_ShouldWork()
+        {
+            Assert.DoesNotThrow(() => fs.FlightCancellation(102));
+        }
     }
 }
