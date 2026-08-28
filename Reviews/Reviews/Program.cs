@@ -229,7 +229,6 @@ namespace Reviews
                 Console.Write(result2[i] + " ");
             }
 
-
         }
     }
 }
