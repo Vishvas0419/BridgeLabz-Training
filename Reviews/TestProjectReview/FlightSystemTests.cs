@@ -9,7 +9,7 @@ namespace TestProjectReview
     {
         private FlightSystem fs;
 
-        [SetUp]
+        [SetUp] 
         public void Setup()
         {
             fs = new FlightSystem();
