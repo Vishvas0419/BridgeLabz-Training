@@ -10,38 +10,28 @@ namespace DSAReview
         private RunwayNode runwayHead;
         private RunwayNode currentRunway;
 
-        private Dictionary<int, Queue<Passenger>> boardingQueues
-    = new Dictionary<int, Queue<Passenger>>();
+        private Dictionary<int,Queue<Passenger>> boardingQueues = new Dictionary<int,Queue<Passenger>>();
+        private Dictionary<int,PriorityQueue<Passenger,int>> priorityQueues = new Dictionary<int,PriorityQueue<Passenger,int>>();
+        private Stack<int>cancellationStack = new Stack<int>();
+        private Dictionary<int,Flight> flights = new Dictionary<int,Flight>();
 
-        private Dictionary<int, PriorityQueue<Passenger, int>> priorityQueues
-    = new Dictionary<int, PriorityQueue<Passenger, int>>();
-
-        private Stack<int> cancellationStack = new Stack<int>();
-
-        private Dictionary<int, Flight> flights =
-    new Dictionary<int, Flight>();
-
-        public void AddFlight(Flight flight) //flight nodes added acc to boarding time
+        public void AddFlight(Flight flight) //fl ight nodes added to dll acc to boarding time
         {
 
-            flights.Add(flight.Code, flight); //adding also to dictionary
+            flights.Add(flight.Code, flight); //adding also to dictionary which will br further used for flights lookup
 
             FlightNode newNode = new FlightNode(flight);
-
             if (head == null)
             {
                 head = newNode;
                 return;
             }
-
             FlightNode temp = head;
-
             while (temp.Next != null &&
                    temp.Data.BoardingTime < flight.BoardingTime)
             {
                 temp = temp.Next;
             }
-
             // Add at beginning
             if (temp == head &&
                 temp.Data.BoardingTime > flight.BoardingTime)
@@ -51,7 +41,6 @@ namespace DSAReview
                 head = newNode;
                 return;
             }
-
             // Add at end
             if (temp.Next == null &&
                 temp.Data.BoardingTime < flight.BoardingTime)
@@ -60,7 +49,6 @@ namespace DSAReview
                 newNode.Prev = temp;
                 return;
             }
-
             // Add in the middle
             newNode.Next = temp;
             newNode.Prev = temp.Prev;
@@ -68,7 +56,7 @@ namespace DSAReview
             temp.Prev = newNode;
         }
 
-        public void AddRunway(int runwayNumber)
+        public void AddRunway(int runwayNumber)// creates and add runway nodes to CLL
         {
             RunwayNode newNode = new RunwayNode(runwayNumber);
 
@@ -81,18 +69,15 @@ namespace DSAReview
             }
 
             RunwayNode temp = runwayHead;
-
-            while (temp.Next != runwayHead)
+            while (temp.Next != runwayHead) //check for CLL
             {
                 temp = temp.Next;
             }
-
             temp.Next = newNode;
             newNode.Next = runwayHead;
         }
 
-        //changed RUnway Allocation
-        public void RunwayAllocation()
+        public void RunwayAllocation() //uses CLL to allocate runways in a round-robin manner
         {
             if (head == null)
             {
@@ -107,12 +92,9 @@ namespace DSAReview
             }
 
             FlightNode temp = head;
-
             while (temp != null)
             {
-                Console.WriteLine(
-                    $"Flight {temp.Data.Code} allocated to Runway {currentRunway.RunwayNumber}"
-                );
+                Console.WriteLine($"Flight {temp.Data.Code} allocated to Runway {currentRunway.RunwayNumber}");
 
                 currentRunway = currentRunway.Next;
                 temp = temp.Next;
@@ -141,7 +123,7 @@ namespace DSAReview
         //    );
         //}
 
-        public void AddPassenger(int flightCode, Passenger passenger)
+        public void AddPassenger(int flightCode, Passenger passenger) //runway boarding of passengers to flights acc to priority of passengers
         {
             if (head == null)
             {
@@ -150,26 +132,21 @@ namespace DSAReview
             }
 
             FlightNode temp = head;
-
             while (temp != null)
             {
                 if (temp.Data.Code == flightCode)
                 {
                     if (!boardingQueues.ContainsKey(flightCode))
                     {
-                        boardingQueues[flightCode] =
-                            new Queue<Passenger>();
+                        boardingQueues[flightCode] = new Queue<Passenger>();
                     }
-
                     if (passenger.IsPriority)
                     {
                         if (!priorityQueues.ContainsKey(flightCode))
                         {
-                            priorityQueues[flightCode] =
-                                new PriorityQueue<Passenger, int>();
+                            priorityQueues[flightCode] = new PriorityQueue<Passenger,int>();
                         }
-
-                        priorityQueues[flightCode].Enqueue(passenger, 1);
+                        priorityQueues[flightCode].Enqueue(passenger,1);
                     }
                     else
                     {
@@ -178,7 +155,6 @@ namespace DSAReview
                             boardingQueues[flightCode] =
                                 new Queue<Passenger>();
                         }
-
                         boardingQueues[flightCode].Enqueue(passenger);
                     }
 
@@ -206,13 +182,11 @@ namespace DSAReview
 
             if (priorityQueues.ContainsKey(flightCode))
             {
-                PriorityQueue<Passenger, int> priorityQueue =
-                    priorityQueues[flightCode];
+                PriorityQueue<Passenger, int> priorityQueue = priorityQueues[flightCode];
 
                 while (priorityQueue.Count > 0)
                 {
-                    Passenger passenger =
-                        priorityQueue.Dequeue();
+                    Passenger passenger = priorityQueue.Dequeue();
 
                     Console.WriteLine(
                         $"Priority passenger {passenger.Name} is boarding Flight {flightCode}"
@@ -224,8 +198,7 @@ namespace DSAReview
 
             if (boardingQueues.ContainsKey(flightCode))
             {
-                Queue<Passenger> queue =
-                    boardingQueues[flightCode];
+                Queue<Passenger> queue = boardingQueues[flightCode];
 
                 while (queue.Count > 0)
                 {
@@ -286,7 +259,7 @@ namespace DSAReview
         //        Console.WriteLine($"Flight {flight.Code} is boarding");
         //    }
         //}
-        public void FlightCancellation(int flightCode)
+        public void FlightCancellation(int flightCode) //uses stack to do undo trail and keep track of recently cancelled flight
         {
             FlightNode temp = head;
 
@@ -295,11 +268,7 @@ namespace DSAReview
                 if (temp.Data.Code == flightCode)
                 {
                     cancellationStack.Push(temp.Data.Code);
-
-                    Console.WriteLine(
-                        $"Flight {temp.Data.Code} cancelled"
-                    );
-
+                    Console.WriteLine($"Flight {temp.Data.Code} cancelled");
                     return;
                 }
 
@@ -360,7 +329,7 @@ namespace DSAReview
             {
                 FlightNode next = temp.Next;
 
-                while (next != null)
+                while (next != null) //bubble sort
                 {
                     if (temp.Data.Code > next.Data.Code)
                     {

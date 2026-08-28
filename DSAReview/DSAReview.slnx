@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="DSAReview/DSAReview.csproj" />
+  <Project Path="FlightSystemTests/FlightSystemTests.csproj" />
+</Solution>
