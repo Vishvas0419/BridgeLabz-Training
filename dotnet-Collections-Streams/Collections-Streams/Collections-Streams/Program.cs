@@ -56,17 +56,29 @@ namespace Collections_Streams
             //==============================
             //JSON_DataHandling 
 
-            JSON_DataHandling handler = new JSON_DataHandling();
+            //JSON_DataHandling handler = new JSON_DataHandling();
 
-            JArray jsonMatches = handler.ReadJson("ipl_data.json");
-            JArray censoredJson = handler.CensorJson(jsonMatches);
-            handler.WriteJson("ipl_data_censored.json", censoredJson);
+            //JArray jsonMatches = handler.ReadJson("ipl_data.json");
+            //JArray censoredJson = handler.CensorJson(jsonMatches);
+            //handler.WriteJson("ipl_data_censored.json", censoredJson);
 
-            List<Dictionary<string, string>> csvMatches = handler.ReadCsv("ipl_data.csv");
-            List<Dictionary<string, string>> censoredCsv = handler.CensorCsv(csvMatches);
-            handler.WriteCsv("ipl_data_censored.csv", censoredCsv);
+            //List<Dictionary<string, string>> csvMatches = handler.ReadCsv("ipl_data.csv");
+            //List<Dictionary<string, string>> censoredCsv = handler.CensorCsv(csvMatches);
+            //handler.WriteCsv("ipl_data_censored.csv", censoredCsv);
 
-            Console.WriteLine("Censorship complete.");
+            //Console.WriteLine("Censorship complete.");
+
+            //=================================
+            //CSV_DataHandling 
+            CSV_DataHandling handler = new CSV_DataHandling();
+
+            List<Dictionary<string, string>> employees = handler.ReadCsv("employees.csv");
+            List<Dictionary<string, string>> updatedEmployees = handler.IncreaseSalaryForDepartment(employees, "IT", 10m);
+
+            string[] headers = { "id", "name", "department", "salary" };
+            handler.WriteCsv("employees_updated.csv", updatedEmployees, headers);
+
+            Console.WriteLine("Salary update complete.");
 
         }
     }
