@@ -11,10 +11,10 @@ namespace Reviews
     {
     }
 
-    interface IDisposable
-    {
-        public string EncryptionContext();
-    }
+    //interface IDisposable
+    //{
+    //    public string EncryptionContext();
+    //}
 
     public class AccessEvent
     {
@@ -51,8 +51,7 @@ namespace Reviews
 
         public Predicate<AccessEvent> CreateOffHoursRule(int startHour, int endHour)
         {
-            return e => e.Timestamp.Hour < startHour ||
-                        e.Timestamp.Hour >= endHour;
+            return e => e.Timestamp.Hour < startHour || e.Timestamp.Hour >= endHour;
         }
 
         public Predicate<AccessEvent> CreateClearanceRule(int requiredLevel)
@@ -60,9 +59,7 @@ namespace Reviews
             return e => e.ClearanceLevel < requiredLevel;
         }
 
-        public Predicate<AccessEvent> CreateFailureThresholdRule(
-            int maxFailures,
-            TimeSpan window)
+        public Predicate<AccessEvent> CreateFailureThresholdRule(int maxFailures, TimeSpan window)
         {
             return e => e.FailureCount >= maxFailures &&
                         e.FailureWindow <= window;
@@ -92,12 +89,12 @@ namespace Reviews
 
         //using predicate and action for filtering and side effect logging
 
-        public Predicate<AccessEvent> IsValidEvent()
+        public Predicate<AccessEvent> IsValidEvent() 
         {
             return e => e.Success;
         }
 
-        public Action<AccessEvent> LogEvent()
+        public Action<AccessEvent> LogEvent() 
         {
             return e =>
             {
@@ -105,15 +102,15 @@ namespace Reviews
                     $"Employee: {e.EmployeeId}, Zone: {e.ZoneId}");
             };
         }
-
+        //processing after fullfilling the condiitons 
         public void ProcessEvent(AccessEvent accessEvent)
         {
-            Predicate<AccessEvent> filter = IsValidEvent();
-            Action<AccessEvent> logger = LogEvent();
+            Predicate<AccessEvent> filter = IsValidEvent(); 
+            Action<AccessEvent> logger = LogEvent();  
 
-            if (filter(accessEvent))
+            if (filter(accessEvent)) //is this event valid 
             {
-                logger(accessEvent);
+                logger(accessEvent); // if valid, log event
             }
         }
 
@@ -127,9 +124,7 @@ namespace Reviews
         }
 
 
-
-
-
+        //LINQ
         public List<string> GroupAnomaliesByReason(List<Anomaly> anomalies)
         {
             return anomalies
@@ -147,15 +142,6 @@ namespace Reviews
                 .Select(g => $"Employee {g.Key}: {g.Count()} anomalies")
                 .ToList();
         }
-        public Dictionary<int, int> GetHourlyFrequency(
-            List<Anomaly> anomalies)
-        {
-            return anomalies
-                .GroupBy(a => a.AccessEvent.Timestamp.Hour)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.Count());
-        } 
 
 
 
