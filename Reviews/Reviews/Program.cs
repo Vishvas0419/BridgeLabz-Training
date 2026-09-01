@@ -213,21 +213,43 @@ namespace Reviews
 
 
             //problem statement 2 - Product of array except self
-            int[] arr = { 1, 2, 3, 4 };
-            int[] result = new int[arr.Length];
-            result = ProductExceptSelf.productExceptSelf(arr);
-            for (int i = 0; i < result.Length; i++)
+            //int[] arr = { 1, 2, 3, 4 };
+            //int[] result = new int[arr.Length];
+            //result = ProductExceptSelf.productExceptSelf(arr);
+            //for (int i = 0; i < result.Length; i++)
+            //{
+            //    Console.Write(result[i] + " ");
+            //}
+            //Console.WriteLine();
+            //int[] arr2 = { -1, 1, 0, -3, 3 };
+            //int[] result2 = new int[arr2.Length];
+            //result2 = ProductExceptSelf.productExceptSelf(arr2);
+            //for (int i = 0; i < result2.Length; i++)
+            //{
+            //    Console.Write(result2[i] + " ");
+            //}
+
+
+
+
+
+            //============================
+            // week 5 review main file
+
+            var engine = new AccessAuditEngine();
+
+            engine.AnomalyDetected += (sender, e) =>
             {
-                Console.Write(result[i] + " ");
-            }
-            Console.WriteLine();
-            int[] arr2 = { -1, 1, 0, -3, 3 };
-            int[] result2 = new int[arr2.Length];
-            result2 = ProductExceptSelf.productExceptSelf(arr2);
-            for (int i = 0; i < result2.Length; i++)
+                Console.WriteLine($"Security Console: {e.Reason}");
+            };
+
+            engine.AnomalyDetected += (sender, e) =>
             {
-                Console.Write(result2[i] + " ");
-            }
+                Console.WriteLine($"Incident Ticket: {e.Reason}");
+            };
+
+            engine.DetectAnomaly("OffHours");
+
 
         }
     }
