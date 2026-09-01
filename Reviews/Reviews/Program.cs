@@ -238,17 +238,18 @@ namespace Reviews
 
             var engine = new AccessAuditEngine();
 
-            engine.AnomalyDetected += (sender, e) =>
+            var accessEvent = new AccessEvent
             {
-                Console.WriteLine($"Security Console: {e.Reason}");
+                EmployeeId = 1,
+                ZoneId = "Office",
+                Timestamp = new DateTime(2026, 9, 1, 10, 0, 0),
+                Success = true
             };
 
-            engine.AnomalyDetected += (sender, e) =>
-            {
-                Console.WriteLine($"Incident Ticket: {e.Reason}");
-            };
+            var rule = engine.CreateOffHoursRule(8, 18);
 
-            engine.DetectAnomaly("OffHours");
+            Console.WriteLine(rule(accessEvent));
+
 
 
         }
