@@ -235,97 +235,134 @@ namespace Reviews
 
             //============================
             // week 5 review main file
-            Employee employee1 = new Employee(101, 2, 0);
-            Employee employee2 = new Employee(102, 4, 0);
+            AccessAuditEngine engine =
+            new AccessAuditEngine();
 
-            AccessEvent event1 = new AccessEvent
-            {
-                EmployeeId = 101,
-                ZoneId = "ServerRoom",
-                Timestamp = DateTime.Today.AddHours(2),
-                Success = false
-            };
-
-            AccessEvent event2 = new AccessEvent
-            {
-                EmployeeId = 101,
-                ZoneId = "Office",
-                Timestamp = DateTime.Today.AddHours(10),
-                Success = true
-            };
-            AccessAuditEngine engine = new AccessAuditEngine();
-            Predicate<AccessEvent> offHoursRule = engine.CreateOffHoursRule(8, 18); //predicate //company hours are from 8 am to 6 ppm
-
-            bool suspicious = offHoursRule(event1);
-            //IF YES THEN LOG 
-            if(suspicious)
-            {
-                Console.WriteLine($"{event1.ZoneId} event happened outside working hours !!");
-            }
-
-
-            Predicate<AccessEvent> clearanceRule =
-    engine.CreateClearanceRule(4); //reqd level = 4
-
-            bool unauthorized = clearanceRule(event1);
-
-            if(unauthorized)
-            {
-                Console.WriteLine($"{event1.ZoneId} entry not allowed your level is too low to enter {event1.ZoneId}");
-            }
-
-            Predicate<AccessEvent> failureRule = engine.CreateFailureThresholdRule(3,TimeSpan.FromMinutes(10)); //maxAttempts = 2 and timespan = aroung 10 min
-            bool TooManyAttempts = failureRule(event1);
-
-            if(TooManyAttempts)
-            {
-                Console.WriteLine($"{event1.ZoneId} is being tried to breach above the theshold count");
-            }
-
-            Predicate<AccessEvent> combinedRule = engine.CombineRules(offHoursRule,clearanceRule,failureRule);
-
-            bool isAnomaly = combinedRule(event1);
-
-            //checkinf the event validaiton using action and predecates
-            engine.ProcessEvent(event1);
-
-
-            //rolling failure count to checck how many the emp failed in last 10 min
-            List<AccessEvent> events = new()
-            {
-                event1,
-                event2,
-            };
-            int count = engine.GetFailureCount(events,event1,TimeSpan.FromMinutes(10));
-
-            //linq grouping anamolies by reason
-            var anomalies = new List<Anomaly>
-            {
-                new Anomaly
+            List<Employee> employees =
+                new List<Employee>
                 {
-                    AccessEvent = event1,
-                    Reasons = new List<string>
+                new Employee(101, 2),
+                new Employee(102, 4),
+                new Employee(103, 5)
+                };
+
+            List<AccessEvent> events =
+                new List<AccessEvent>();
+
+            DateTime startTime =
+                new DateTime(2026, 9, 3, 8, 0, 0);
+
+            for (int i = 0; i < 20; i++)
+            {
+                events.Add(
+                    new AccessEvent
                     {
-                        "OffHours",
-                        "InsufficientClearance"
-                    }
-                }
-            };
+                        EmployeeId = 101,
+                        ZoneId = i == 19 ? "ServerRoom" : "Office",
+                        Timestamp = startTime.AddMinutes(i * 5),
+                        Success = i >= 3
+                    });
+            }
 
-            var result = engine.GroupAnomaliesByReason(anomalies);
+            List<string> trace =
+                new List<string>();
 
-            foreach (var item in result)
+            string fileName =
+                "audit.log";
+
+            engine.AnomalyDetected +=
+                SecurityConsole;
+
+            List<string> incidents =
+                new List<string>();
+
+            engine.AnomalyDetected +=
+                (sender, args) =>
+                {
+                    incidents.Add(args.Reason);
+                };
+
+            List<Anomaly> anomalies;
+
+            using (AuditSession session =
+                new AuditSession(fileName, trace))
+            {
+                anomalies =
+                    engine.AnalyzeEvents(
+                        events,
+                        employees,
+                        session);
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "Anomalies:");
+
+            foreach (Anomaly anomaly in anomalies)
+            {
+                Console.WriteLine(
+                    $"Employee {anomaly.AccessEvent.EmployeeId} - " +
+                    $"{string.Join(", ", anomaly.Reasons)} - " +
+                    $"{anomaly.Severity}");
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "Grouped by reason:");
+
+            foreach (string result in
+                engine.GroupAnomaliesByReason(anomalies))
+            {
+                Console.WriteLine(result);
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "Employee ranking:");
+
+            foreach (string result in
+                engine.RankByAnomalyCount(anomalies))
+            {
+                Console.WriteLine(result);
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "Hourly frequency:");
+
+            foreach (string result in
+                engine.GetHourlyAnomalyFrequency(anomalies))
+            {
+                Console.WriteLine(result);
+            }
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "Event subscribers received: " +
+                incidents.Count);
+
+            Console.WriteLine();
+
+            Console.WriteLine(
+                "Dispose order:");
+
+            foreach (string item in trace)
             {
                 Console.WriteLine(item);
             }
-
-
-            var ranking = engine.RankByAnomalyCount(anomalies);
-            foreach (var item in ranking)
-            {
-                Console.WriteLine(item);
-            }
-
         }
+        static void SecurityConsole(
+            object? sender,
+            AnomalyEventArgs args)
+        {
+            Console.WriteLine(
+                $"SECURITY CONSOLE: {args.Reason}");
+        }
+
     }
 }

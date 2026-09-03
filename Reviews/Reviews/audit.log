@@ -1,0 +1,20 @@
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Reasons: RepeatedFailure, Severity: Warning
+Employee 101, Zone Office, Reasons: RepeatedFailure, Severity: Warning
+Employee 101, Zone Office, Reasons: RepeatedFailure, Severity: Warning
+Employee 101, Zone Office, Reasons: RepeatedFailure, Severity: Warning
+Employee 101, Zone Office, Reasons: RepeatedFailure, Severity: Warning
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone Office, Result: Normal
+Employee 101, Zone ServerRoom, Reasons: InsufficientClearance, Severity: Critical
