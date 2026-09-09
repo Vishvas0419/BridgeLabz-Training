@@ -1,0 +1,16 @@
+﻿{
+  "categories": [
+    {
+      "code": "STATIONERY",
+      "taxPercent": 5
+    },
+    {
+      "code": "GROCERY",
+      "taxPercent": 0
+    },
+    {
+      "code": "ELECTRONICS",
+      "taxPercent": 18
+    }
+  ]
+}

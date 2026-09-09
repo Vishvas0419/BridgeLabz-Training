@@ -6,6 +6,10 @@ namespace Reviews
     {
         static void Main(string[] args)
         {
+            //static void SecurityConsole(object? sender, AnomalyEventArgs args)
+            //{
+            //    Console.WriteLine($"SECURITY CONSOLE: {args.Reason}");
+            //}
             //employee management system-week2
 
 
@@ -235,133 +239,152 @@ namespace Reviews
 
             //============================
             // week 5 review main file
-            AccessAuditEngine engine =
-            new AccessAuditEngine();
+            //AccessAuditEngine engine =
+            //new AccessAuditEngine();
 
-            List<Employee> employees =
-                new List<Employee>
+            //List<Employee> employees =
+            //    new List<Employee>
+            //    {
+            //    new Employee(101, 2),
+            //    new Employee(102, 4),
+            //    new Employee(103, 5)
+            //    };
+
+            //List<AccessEvent> events =
+            //    new List<AccessEvent>();
+
+            //DateTime startTime =
+            //    new DateTime(2026, 9, 3, 8, 0, 0);
+
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    events.Add(
+            //        new AccessEvent
+            //        {
+            //            EmployeeId = 101,
+            //            ZoneId = i == 19 ? "ServerRoom" : "Office",
+            //            Timestamp = startTime.AddMinutes(i * 5),
+            //            Success = i >= 3
+            //        });
+            //}
+
+            //List<string> trace = new List<string>();
+
+            //string fileName = "audit.log";
+
+
+            ////events calling
+            ////this means Whenever engine raises the AnomalyDetected event, call SecurityConsole method
+            //engine.AnomalyDetected += SecurityConsole;
+
+            ////here AnomalyDetected is the publisher and SecurityConsole is a subscriber which will be getting notified , when  a anamoly is detected
+            //List<string> incidents = new List<string>();
+
+            ////the event also add a a reason to incidents list of strings
+            //engine.AnomalyDetected += (sender, args) =>{
+            //    incidents.Add(args.Reason);
+            //};
+
+            //List<Anomaly> anomalies;
+
+            //using (AuditSession session = new AuditSession(fileName, trace))
+            //{
+            //    anomalies = engine.AnalyzeEvents(events,employees,session);
+            //}
+
+            //Console.WriteLine();
+
+            //Console.WriteLine("Anomalies:");
+
+            //foreach (Anomaly anomaly in anomalies)
+            //{
+            //    Console.WriteLine(
+            //        $"Employee {anomaly.AccessEvent.EmployeeId} - " +
+            //        $"{string.Join(", ", anomaly.Reasons)} - " +
+            //        $"{anomaly.Severity}");
+            //}
+
+            //Console.WriteLine();
+
+            //Console.WriteLine(
+            //    "Grouped by reason:");
+
+            //foreach (string result in
+            //    engine.GroupAnomaliesByReason(anomalies))
+            //{
+            //    Console.WriteLine(result);
+            //}
+
+            //Console.WriteLine();
+
+            //Console.WriteLine(
+            //    "Employee ranking:");
+
+            //foreach (string result in
+            //    engine.RankByAnomalyCount(anomalies))
+            //{
+            //    Console.WriteLine(result);
+            //}
+
+            //Console.WriteLine();
+
+            //Console.WriteLine(
+            //    "Hourly frequency:");
+
+            //foreach (string result in
+            //    engine.GetHourlyAnomalyFrequency(anomalies))
+            //{
+            //    Console.WriteLine(result);
+            //}
+
+            //Console.WriteLine();
+
+            //Console.WriteLine(
+            //    "Event subscribers received: " +
+            //    incidents.Count);
+
+            //Console.WriteLine();
+
+            //Console.WriteLine(
+            //    "Dispose order:");
+
+            //foreach (string item in trace)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //=================================
+            //Week6 Review 
+            //=================================
+
+            Week6 week6 = new Week6();
+
+            string csvFile = "sales.csv";
+            string jsonFile = "tax_config.json";
+
+            try
+            {
+                List<Product> products = week6.ReadProducts(csvFile);
+                week6.ValidateBillId(products);
+                week6.ValidateQuantity(products);
+                week6.ValidatePrice(products);
+                week6.ValidateCategory(products, jsonFile);
+                week6.DetectDuplicateBillID(products);
+                
+
+                foreach (Product product in products)
                 {
-                new Employee(101, 2),
-                new Employee(102, 4),
-                new Employee(103, 5)
-                };
-
-            List<AccessEvent> events =
-                new List<AccessEvent>();
-
-            DateTime startTime =
-                new DateTime(2026, 9, 3, 8, 0, 0);
-
-            for (int i = 0; i < 20; i++)
-            {
-                events.Add(
-                    new AccessEvent
-                    {
-                        EmployeeId = 101,
-                        ZoneId = i == 19 ? "ServerRoom" : "Office",
-                        Timestamp = startTime.AddMinutes(i * 5),
-                        Success = i >= 3
-                    });
+                    decimal subTotal = week6.CalculateSubTotal(product);
+                    decimal tax = week6.CalculateTax(product,jsonFile);
+                    decimal finalAmount = week6.CalculateFinalAmount(product, jsonFile);
+                    Console.WriteLine("Product Details : ");
+                }
+                week6.CategoryTotals(products);
             }
-
-            List<string> trace =
-                new List<string>();
-
-            string fileName =
-                "audit.log";
-
-            engine.AnomalyDetected +=
-                SecurityConsole;
-
-            List<string> incidents =
-                new List<string>();
-
-            engine.AnomalyDetected +=
-                (sender, args) =>
-                {
-                    incidents.Add(args.Reason);
-                };
-
-            List<Anomaly> anomalies;
-
-            using (AuditSession session =
-                new AuditSession(fileName, trace))
+            catch(Exception ex)
             {
-                anomalies =
-                    engine.AnalyzeEvents(
-                        events,
-                        employees,
-                        session);
+                Console.WriteLine(ex.Message);
             }
-
-            Console.WriteLine();
-
-            Console.WriteLine(
-                "Anomalies:");
-
-            foreach (Anomaly anomaly in anomalies)
-            {
-                Console.WriteLine(
-                    $"Employee {anomaly.AccessEvent.EmployeeId} - " +
-                    $"{string.Join(", ", anomaly.Reasons)} - " +
-                    $"{anomaly.Severity}");
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine(
-                "Grouped by reason:");
-
-            foreach (string result in
-                engine.GroupAnomaliesByReason(anomalies))
-            {
-                Console.WriteLine(result);
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine(
-                "Employee ranking:");
-
-            foreach (string result in
-                engine.RankByAnomalyCount(anomalies))
-            {
-                Console.WriteLine(result);
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine(
-                "Hourly frequency:");
-
-            foreach (string result in
-                engine.GetHourlyAnomalyFrequency(anomalies))
-            {
-                Console.WriteLine(result);
-            }
-
-            Console.WriteLine();
-
-            Console.WriteLine(
-                "Event subscribers received: " +
-                incidents.Count);
-
-            Console.WriteLine();
-
-            Console.WriteLine(
-                "Dispose order:");
-
-            foreach (string item in trace)
-            {
-                Console.WriteLine(item);
-            }
-        }
-        static void SecurityConsole(
-            object? sender,
-            AnomalyEventArgs args)
-        {
-            Console.WriteLine(
-                $"SECURITY CONSOLE: {args.Reason}");
         }
 
     }

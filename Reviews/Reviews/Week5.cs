@@ -122,12 +122,10 @@ namespace Reviews
 
         public void DetectAnomaly(string reason)
         {
-            AnomalyDetected?.Invoke(
-                this,
-                new AnomalyEventArgs(reason));
+            AnomalyDetected?.Invoke(this,new AnomalyEventArgs(reason));
         }
 
-        public event EventHandler<AnomalyEventArgs>? AnomalyDetectedWithDetails;
+        //public event EventHandler<AnomalyEventArgs>? AnomalyDetectedWithDetails;
 
         //using predicate and action for filtering and side effect logging
 
@@ -207,10 +205,7 @@ namespace Reviews
                 .ToList();
         }
 
-        public List<Anomaly> AnalyzeEvents(
-            List<AccessEvent> events,
-            List<Employee> employees,
-            AuditSession session)
+        public List<Anomaly> AnalyzeEvents(List<AccessEvent> events, List<Employee>employees,AuditSession session)
         {
             if (events == null)
             {
@@ -236,9 +231,7 @@ namespace Reviews
 
                 try
                 {
-                    anomaly = EvaluateEvent(
-                        currentEvent,
-                        session);
+                    anomaly = EvaluateEvent(currentEvent,session);
 
                     if (anomaly.Reasons.Count > 0)
                     {
@@ -320,13 +313,9 @@ namespace Reviews
             return anomalies;
         }
 
-        public Anomaly EvaluateEvent(
-            AccessEvent currentEvent,
-            AuditSession session)
+        public Anomaly EvaluateEvent(AccessEvent currentEvent, AuditSession session)
         {
-            Employee? employee =
-                Employees.FirstOrDefault(
-                    e => e.EmployeeId == currentEvent.EmployeeId);
+            Employee? employee = Employees.FirstOrDefault( e => e.EmployeeId == currentEvent.EmployeeId);
 
             if (employee == null)
             {
@@ -352,8 +341,7 @@ namespace Reviews
                     clearanceRule,
                     failureRule);
 
-            Anomaly anomaly =
-                new Anomaly(currentEvent);
+            Anomaly anomaly = new Anomaly(currentEvent);
 
             if (offHoursRule(currentEvent))
             {
