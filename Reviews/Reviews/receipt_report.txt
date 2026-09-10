@@ -1,0 +1,46 @@
+Daily Settlement Receipt Report
+
+Bill Id : BILL1
+Item : Notebook
+Quantity : 5
+Unit Price : 40
+Category : STATIONERY
+Subtotal : 200
+Tax : 10
+Final Amount : 210
+
+Bill Id : BILL2
+Item : Milk 1
+Quantity : 2
+Unit Price : 60
+Category : GROCERY
+Subtotal : 120
+Tax : 0
+Final Amount : 120
+
+Bill Id : BILL3
+Item : Phone Case
+Quantity : 1
+Unit Price : 300
+Category : ELECTRONICS
+Subtotal : 300
+Tax : 54
+Final Amount : 354
+
+Bill Id : BILL4
+Item : Pen
+Quantity : 1
+Unit Price : 10
+Category : STATIONERY
+Subtotal : 10
+Tax : 0.5
+Final Amount : 10.5
+
+Bill Id : BILL5
+Item : Bread
+Quantity : 3
+Unit Price : 35
+Category : GROCERY
+Subtotal : 105
+Tax : 0
+Final Amount : 105

@@ -1,0 +1,10 @@
+{
+  "TotalSubtotal": 735.0,
+  "TotalTax": 64.5,
+  "TotalAmount": 799.5,
+  "CategoryTotals": {
+    "STATIONERY": 220.5,
+    "GROCERY": 225.0,
+    "ELECTRONICS": 354.0
+  }
+}

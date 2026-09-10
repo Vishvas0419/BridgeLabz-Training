@@ -359,31 +359,35 @@ namespace Reviews
 
             Week6 week6 = new Week6();
 
-            string csvFile = "sales.csv";
-            string jsonFile = "tax_config.json";
+            string salesFile = "sales.csv";
+            string taxConfigFile = "tax_config.json";
+            string settlementFile = "settlement.json";
+            string receiptFile = "receipt_report.txt";
 
             try
             {
-                List<Product> products = week6.ReadProducts(csvFile);
+                var products = week6.ReadProducts(salesFile);
+
                 week6.ValidateBillId(products);
                 week6.ValidateQuantity(products);
                 week6.ValidatePrice(products);
-                week6.ValidateCategory(products, jsonFile);
+                week6.ValidateCategory(products, taxConfigFile);
                 week6.DetectDuplicateBillID(products);
-                
 
-                foreach (Product product in products)
-                {
-                    decimal subTotal = week6.CalculateSubTotal(product);
-                    decimal tax = week6.CalculateTax(product,jsonFile);
-                    decimal finalAmount = week6.CalculateFinalAmount(product, jsonFile);
-                    Console.WriteLine("Product Details : ");
-                }
-                week6.CategoryTotals(products);
+                week6.GenerateSettlementJson(products, taxConfigFile, settlementFile);
+                week6.GenerateReceiptReport(products, taxConfigFile, receiptFile);
+
+                Console.WriteLine("Daily settlement generated successfully.");
+                Console.WriteLine($"Settlement file: {settlementFile}");
+                Console.WriteLine($"Receipt report: {receiptFile}");
             }
-            catch(Exception ex)
+            catch (PosException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"POS Error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
 
