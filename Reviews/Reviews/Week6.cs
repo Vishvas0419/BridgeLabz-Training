@@ -241,7 +241,7 @@ namespace Reviews
 
     public class PosException : Exception
     {
-        public PosException(string message) : base(message) { }
+        public PosException(string message) : base(message)                                                                                                  { }
     }
     public class InvalidQuantityException : PosException
     {
